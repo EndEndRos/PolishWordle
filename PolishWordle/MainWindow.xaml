@@ -5,12 +5,23 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:PolishWordle"
         mc:Ignorable="d"
-        Title="MainWindow" Height="500" Width="450">
-    <Grid x:Name = "TheBoard" Width="450" Height="500 " Background="Azure">
+        Title="Wordle Game" Height="500" Width="450"
+        Loaded="MainWindowLoaded">
+
+    <Grid x:Name = "TheBoard" Width="450" Height="500 " AutomationProperties.IsOffscreenBehavior="Onscreen">
+        <Grid.Background>
+            <ImageBrush 
+                Stretch="UniformToFill" 
+                ImageSource="D:\C#\PolishWordle\PolishWordle\DataBase\Background.jpg">
+
+            </ImageBrush>
+
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="100"></ColumnDefinition>
             <ColumnDefinition Width="30"></ColumnDefinition>
-            <ColumnDefinition Width="*"></ColumnDefinition>
+            <ColumnDefinition/>
+            <ColumnDefinition Width="Auto"/>
         </Grid.ColumnDefinitions>
 
         <Grid.RowDefinitions>
@@ -28,40 +39,54 @@
             <RowDefinition Height="*"></RowDefinition>
         </Grid.RowDefinitions>
 
-        <TextBlock Text="Wordle!" VerticalAlignment="Center" HorizontalAlignment="Center" Padding="10" FontFamily="Ink Free" FontSize="20"></TextBlock>
-        <Button Grid.Column="0" Grid.Row="2" Content="New Game" Margin="15" Name="Btn_clear" Click="Btn_clear_Click"></Button>
+        <TextBlock Text="Wordle!" VerticalAlignment="Center" Foreground="WhiteSmoke" HorizontalAlignment="Center" Padding="10" FontFamily="Ink Free" FontSize="20"></TextBlock>
+        <Button 
+            Grid.Column="0" 
+            Grid.Row="2" 
+            Content="New Game" 
+            Margin="15,15,15,15" 
+            Name="Btn_NewGame"
+            Background="#3300"
+            Foreground="White" Click="Btn_NewGame_Click"
+            >
+
+        </Button>
         <TextBlock
             Grid.Column="2"
             Grid.Row="0"
-            Padding="3 15" 
+            Padding="0 15" 
             HorizontalAlignment="Left"
             FontFamily="Ink Free"
             FontSize="13"
+            Foreground="WhiteSmoke"
+            FontWeight="UltraBold"
             
             >Write your word! ->
         </TextBlock>
-        <TextBox 
+        <TextBox x:Name="Word"
             Grid.Column="2" 
             Grid.Row="0" 
-            Margin="15" 
-            HorizontalAlignment="Center" 
+            Margin="110,15,0,15" 
+            HorizontalAlignment="Left" 
             MaxLength="5"
-            Width="100">
+            Width="100"
+            Background="#3300"
+            Foreground="White" 
+            
+            >
+
         </TextBox>
         <Button Name="Bt_send_word"
                 Grid.Column="2"
                 Grid.Row="0"
-                HorizontalAlignment="Right"
-                Margin="10"
+                Margin="220,12,28,12"
                 Content="Next"
-                Width="90"
-                Height="30"
-                Click="Btn_send">
-            
-        </Button>
-        
-       
-        <Border Grid.Column="2" Grid.Row="2">
+                Background="#3300"
+                Foreground="white" Click="Bt_send_word_Click" Grid.ColumnSpan="2"
+                />
+
+
+        <Border Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" >
             <Grid x:Name="Column1">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="55"></ColumnDefinition>
@@ -71,14 +96,14 @@
                     <ColumnDefinition Width="55"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="5" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
+                <Label x:Name="txtAA" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtAB" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtAC" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtAD" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtAE" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
             </Grid>
         </Border>
-        <Border Grid.Column="2" Grid.Row="4">
+        <Border Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2">
             <Grid x:Name="Column2">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="55"></ColumnDefinition>
@@ -88,14 +113,14 @@
                     <ColumnDefinition Width="55"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="5" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
+                <Label x:Name="txtBA" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtBB" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtBC" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtBD" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtBE" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
             </Grid>
         </Border>
-        <Border Grid.Column="2" Grid.Row="6">
+        <Border Grid.Column="2" Grid.Row="6" Grid.ColumnSpan="2">
             <Grid x:Name="Column3">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="55"></ColumnDefinition>
@@ -105,14 +130,14 @@
                     <ColumnDefinition Width="55"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="5" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
+                <Label x:Name="txtCA" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtCB" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtCC" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtCD" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtCE" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
             </Grid>
         </Border>
-        <Border Grid.Column="2" Grid.Row="8">
+        <Border Grid.Column="2" Grid.Row="8" Grid.ColumnSpan="2">
             <Grid x:Name="Column4">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="55"></ColumnDefinition>
@@ -122,14 +147,14 @@
                     <ColumnDefinition Width="55"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="5" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
+                <Label x:Name="txtDA" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtDB" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtDC" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtDD" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtDE" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
             </Grid>
         </Border>
-        <Border Grid.Column="2" Grid.Row="10">
+        <Border Grid.Column="2" Grid.Row="10" Grid.ColumnSpan="2">
             <Grid x:Name="Column5">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="55"></ColumnDefinition>
@@ -139,14 +164,62 @@
                     <ColumnDefinition Width="55"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <TextBox Text="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="2" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="3" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="4" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
-                <TextBox Text="5" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" Background="AliceBlue" Width="50" Height="50"></TextBox>
+                <Label x:Name="txtEA" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtEB" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtEC" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtED" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtEE" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center"  FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
             </Grid>
         </Border>
+
+        <Label x:Name="theWord"
+               Grid.Column="2"
+               Grid.Row="12"
+               Content="The Word:"
+               Foreground="White"
+               FontSize="20"
+               VerticalAlignment="Center"
+               >
+        </Label>
+        <Label x:Name="TheWord"
+               Grid.Column="2"
+               Grid.Row="12"
+               Content=""
+               Foreground="#0000"
+               FontSize="20"
+               HorizontalAlignment="Center"
+               VerticalAlignment="Center"
+               
+               >
+            
+        </Label>
+        <Label
+            Grid.Column="0"
+            Grid.Row="4"
+            Background="Black"
+            Opacity="0.4"
+            Margin="5 5 5 28">
+
+        </Label>
+        <Label
+            x:Name="Strike"
+            Grid.Column="0"
+            Grid.Row="4"
+            Foreground="White"
+            Content=""
+            HorizontalAlignment="Center"
+            VerticalAlignment="Top"
+            FontSize="18"
+            Opacity="1.0">
+            
+            
+        </Label>
+        
+        
+        
+               
 
 
     </Grid>
 </Window>
+
