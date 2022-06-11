@@ -8,13 +8,22 @@
         Title="Wordle Game" Height="500" Width="450"
         Loaded="MainWindowLoaded">
 
-    <Grid x:Name = "TheBoard" Width="450" Height="500 " AutomationProperties.IsOffscreenBehavior="Onscreen">
+    <Grid x:Name = "TheBoard" Width="450" Height="500" AutomationProperties.IsOffscreenBehavior="Onscreen">
         <Grid.Background>
-            <ImageBrush 
+            <LinearGradientBrush 
+                StartPoint="0.5,1" 
+                EndPoint="0.5,0" 
+                Opacity="0.6"
+                >
+                <GradientStop Color="#EB6E28"></GradientStop>
+                <GradientStop Color="#F52A61" Offset="1"/>
+
+            </LinearGradientBrush>
+            <!--<ImageBrush 
                 Stretch="UniformToFill" 
                 ImageSource="D:\C#\PolishWordle\PolishWordle\DataBase\Background.jpg">
 
-            </ImageBrush>
+            </ImageBrush>-->
 
         </Grid.Background>
         <Grid.ColumnDefinitions>
@@ -72,6 +81,7 @@
             Width="100"
             Background="#3300"
             Foreground="White" 
+            KeyDown="Word_Text_KeyDown"
             
             >
 
@@ -85,9 +95,14 @@
                 Foreground="white" Click="Bt_send_word_Click" Grid.ColumnSpan="2"
                 />
 
-
-        <Border Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" >
+        
+            <Border Grid.Column="2" Grid.Row="2" Grid.ColumnSpan="2" >
             <Grid x:Name="Column1">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="0*"/>
+                    <RowDefinition Height="9*"/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="55"></ColumnDefinition>
                     <ColumnDefinition Width="55"></ColumnDefinition>
@@ -96,11 +111,11 @@
                     <ColumnDefinition Width="55"></ColumnDefinition>
                 </Grid.ColumnDefinitions>
 
-                <Label x:Name="txtAA" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
-                <Label x:Name="txtAB" Grid.Column="1" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
-                <Label x:Name="txtAC" Grid.Column="2" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
-                <Label x:Name="txtAD" Grid.Column="3" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
-                <Label x:Name="txtAE" Grid.Column="4" VerticalAlignment="Center" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50"></Label>
+                <Label x:Name="txtAA" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50" Grid.Row="1" Margin="0,5,0,0" Grid.RowSpan="2"/>
+                <Label x:Name="txtAB" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50" Grid.Row="1" Margin="0,5,0,0" Grid.RowSpan="2"></Label>
+                <Label x:Name="txtAC" Grid.Column="2" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50" Grid.Row="1" Margin="0,5,0,0" Grid.RowSpan="2"></Label>
+                <Label x:Name="txtAD" Grid.Column="3" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50" Grid.Row="1" Margin="0,5,0,0" Grid.RowSpan="2"></Label>
+                <Label x:Name="txtAE" Grid.Column="4" VerticalAlignment="Top" HorizontalAlignment="Center" HorizontalContentAlignment="Center" FontSize="25" Background="AliceBlue" Width="50" Height="50" Grid.Row="1" Margin="0,5,0,0" Grid.RowSpan="2"></Label>
             </Grid>
         </Border>
         <Border Grid.Column="2" Grid.Row="4" Grid.ColumnSpan="2">
@@ -179,6 +194,8 @@
                Foreground="White"
                FontSize="20"
                VerticalAlignment="Center"
+               BorderBrush="AntiqueWhite"
+               
                >
         </Label>
         <Label x:Name="TheWord"
@@ -191,7 +208,7 @@
                VerticalAlignment="Center"
                
                >
-            
+
         </Label>
         <Label
             Grid.Column="0"
@@ -211,13 +228,22 @@
             VerticalAlignment="Top"
             FontSize="18"
             Opacity="1.0">
-            
-            
+
+
         </Label>
-        
-        
-        
-               
+        <TextBox x:Name="LastScore"
+                 Grid.Row="6"
+                 Grid.Column="0"
+                 Foreground="White"
+                 Background="#0000"
+                 FontSize="14"
+                 TextWrapping="Wrap"
+                 HorizontalAlignment="Center"
+                 VerticalAlignment="Top"
+                 />
+
+
+
 
 
     </Grid>

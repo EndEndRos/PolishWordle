@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Drawing;
+using System.IO;
 
 namespace PolishWordle
 {
@@ -21,45 +22,27 @@ namespace PolishWordle
     /// </summary>
     public partial class MainWindow : Window
     {
-        
+
 
         public int Counter { get; set; }
         public int Counter_strike { get; set; }
-        public string veryfi;
+        public int PointCase { get;  set; }
         public string chosenWord { get; set; }
         public MainWindow()
         {
             InitializeComponent();
             Counter = 0;
             Counter_strike = 0;
+            PointCase = 0;
             Word.Focus();
             Word.SelectAll();
-            
-            
-        }
-        
 
-        public string RandomWord()
-        {
-             
-                string[] lines = System.IO.File.ReadAllLines(@"D:\C#\PolishWordle\PolishWordle\DataBase\words.txt");
-                List<string> list = new List<string>();
-                foreach (string line in lines)
-                {
-                    list.Add(line);
-                }
-
-                
-                Random random = new Random();
-                int index = random.Next(list.Count);
-                string RandomeTheWord = list[index];
-                TheWord.Content = RandomeTheWord;
-                RandomeTheWord = RandomeTheWord.ToUpper();
-                return RandomeTheWord;
-
-       
-            
-
+            string FilePath = "LastScore.txt";
+            if (File.Exists(FilePath))
+            {
+                var FileContent = File.ReadAllText(FilePath);
+                LastScore.Text = FileContent;
+            }
         }
 
         public void Clearing()
@@ -128,18 +111,25 @@ namespace PolishWordle
         public void Point(int pointcase)
         {
             
-           
-            
             Strike.Content = "Strike: x" + Counter_strike;
             Strike.Foreground = Brushes.LightGreen;
-           
-          
+
+    }
+        public enum ThePointStrike
+        {
+            StrikeOne = 1,
+            StrikeTwo,
+            StrikeThree,
+            StrikeFour,
+            StrikeFive
         }
 
         public void Working()
         {
+           
+            
 
-             
+            Score(Counter_strike);
             string theword = Word.Text;
             theword = theword.ToUpper();
 
@@ -718,12 +708,54 @@ namespace PolishWordle
                     }
                     else if (i == 5)
                     {
+                        string FilePath = "LastScore.txt";
+                        if (File.Exists(FilePath))
+                        {
+                            var FileContent = File.ReadAllText(FilePath);
+                            if (FileContent.Length > 0)
+                            {
+                                
+                                File.Delete(FilePath);
+                            }
+                            else
+                            {
+
+                                return;
+                            }
+                        }
+                        File.WriteAllText(FilePath, Convert.ToString("Ostatni wynik: "+ PointCase));
+
                         Clearing();
                     }
 
                 }
 
             }
+        }
+        public void Score(int quantity)
+        {
+            switch (quantity)
+            {
+               
+                case (int)ThePointStrike.StrikeOne:
+                    PointCase += 10;
+                    break;
+                case (int)ThePointStrike.StrikeTwo:
+                    PointCase += 15;
+                    break;
+                case (int)ThePointStrike.StrikeThree:
+                    PointCase += 20;
+                    break;
+                case (int)ThePointStrike.StrikeFour:
+                    PointCase += 50;
+                    break;
+                case (int)ThePointStrike.StrikeFive:
+                    PointCase += 75;
+                    break;
+                default:
+                    PointCase = (int)Math.Round(PointCase * 1.1, 0);
+                    break;
+            }   
         }
         private void MainWindowLoaded(object sender, RoutedEventArgs e)
         {
@@ -732,12 +764,13 @@ namespace PolishWordle
         }
         private void Bt_send_word_Click(object sender, EventArgs e)
         {
+            ReadFromFile readFromFile = new ReadFromFile();
             Word.Focus();
             Word.SelectAll();
             if (Counter == 0)
             {
                 
-                chosenWord = RandomWord();
+                chosenWord = readFromFile.RandomWord();
                 TheWord.Content = chosenWord;
             }
             Working();
@@ -748,10 +781,25 @@ namespace PolishWordle
         {
             Counter_strike = 0;
             Clearing();
-            
+            MessageBox.Show("Gratuluję!!! Twój wynik: " + PointCase);
+            PointCase = 0;
 
         }
-
         
+        private void Word_Text_KeyDown(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Enter)
+            {
+                if (Word.Text.Length == 5)
+                {
+                    Bt_send_word_Click(this, new EventArgs());
+                }
+                else
+                {
+                    MessageBox.Show("Słowo musi zawierać 5 liter!");
+                }
+                    
+            }
+        }
     }
 }
